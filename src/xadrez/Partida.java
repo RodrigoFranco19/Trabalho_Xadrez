@@ -24,6 +24,5 @@ public class Partida {
 	
 	public void InicialSetUp() {
 		tab.placePiece(new Torre(tab,Cor.WHITE), new Posicao(0,0));
-		
 	}
 }
