@@ -22,7 +22,27 @@ public class Partida {
 		return mat;
 	}
 	
+	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {
+		tab.placePiece(piece, new Xadrez_Posicao(column,row).toPosition());
+	}
+	
 	public void InicialSetUp() {
-		tab.placePiece(new Torre(tab,Cor.WHITE), new Posicao(0,0));
+		placeNewPiece('a',8, new Torre(tab, Cor.BLACK));
+		placeNewPiece('b',8,new Cavalo(tab,Cor.BLACK));
+		placeNewPiece('c',8,new Bispo(tab,Cor.BLACK));
+		placeNewPiece('d',8,new Rainha(tab,Cor.BLACK));
+		placeNewPiece('e',8,new Rei(tab,Cor.BLACK));
+		placeNewPiece('f',8,new Bispo(tab,Cor.BLACK));
+		placeNewPiece('g',8,new Cavalo(tab,Cor.BLACK));
+		placeNewPiece('h',8, new Torre(tab, Cor.BLACK));
+		
+		placeNewPiece('a',7, new Piao(tab, Cor.BLACK));
+		placeNewPiece('b',7,new Piao(tab,Cor.BLACK));
+		placeNewPiece('c',7,new Piao(tab,Cor.BLACK));
+		placeNewPiece('d',7,new Piao(tab,Cor.BLACK));
+		placeNewPiece('e',7,new Piao(tab,Cor.BLACK));
+		placeNewPiece('f',7,new Piao(tab,Cor.BLACK));
+		placeNewPiece('g',7,new Piao(tab,Cor.BLACK));
+		placeNewPiece('h',7, new Piao(tab, Cor.BLACK));
 	}
 }
