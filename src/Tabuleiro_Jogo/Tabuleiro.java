@@ -35,4 +35,8 @@ public class Tabuleiro {
 		return pcs[pos.getLinha()][pos.getColuna()];
 	}
 	
+	public void placePiece(Peca piece , Posicao pos) {
+		pcs[pos.getLinha()][pos.getColuna()] = piece;
+		piece.pos = pos;
+	}
 }

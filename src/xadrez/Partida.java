@@ -1,6 +1,7 @@
 package xadrez;
 
-import Tabuleiro_Jogo.Tabuleiro;
+import Pecas.*;
+import Tabuleiro_Jogo.*;
 
 public class Partida {
 	
@@ -8,6 +9,7 @@ public class Partida {
 	
 	public Partida() {
 		tab = new Tabuleiro(8,8);
+		InicialSetUp();
 	}
 
 	public Xadrez_Peca[][] getPieces(){
@@ -20,5 +22,8 @@ public class Partida {
 		return mat;
 	}
 	
-	
+	public void InicialSetUp() {
+		tab.placePiece(new Torre(tab,Cor.WHITE), new Posicao(0,0));
+		
+	}
 }
