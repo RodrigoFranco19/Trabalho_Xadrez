@@ -14,6 +14,11 @@ public class Piao extends Xadrez_Peca{
 	public String toString() {
 		return "P";
 	}
-	
+
+	@Override
+	public boolean[][] possibleMoves() {
+		boolean [][]mat = new boolean[getTab().getLinha()][getTab().getColuna()];
+		return mat;
+	}
 	
 }

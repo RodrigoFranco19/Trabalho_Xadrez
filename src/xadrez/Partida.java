@@ -43,6 +43,10 @@ public class Partida {
 		if(!tab.Tempeca(p)) {
 			throw new ChessException("Nao existe peca na posicao de origem");
 		}
+		if(!tab.piece(p).isThereAnyPossibleMove()) {
+			throw new ChessException("Nao existe movimentos possiveis para a peca escolhida");
+
+		}
 	}
 	
 	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {

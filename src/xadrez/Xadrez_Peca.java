@@ -2,7 +2,7 @@ package xadrez;
 
 import Tabuleiro_Jogo.*;
 
-public class Xadrez_Peca extends Peca{
+public abstract class Xadrez_Peca extends Peca{
 
 	private Cor c;
 	

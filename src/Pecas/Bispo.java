@@ -15,4 +15,10 @@ public class Bispo extends Xadrez_Peca{
 		return "B";
 	}
 
+	@Override
+	public boolean[][] possibleMoves() {
+		boolean [][]mat = new boolean[getTab().getLinha()][getTab().getColuna()];
+		return mat;
+	}
+
 }
