@@ -10,7 +10,6 @@ public class Tabuleiro {
 			throw new BoardException("Precisa ter numeros maiores que 0");
 		}
 		
-		
 		this.linha = linha;
 		this.coluna = coluna;
 		pcs = new Peca[linha][coluna];
@@ -46,6 +45,22 @@ public class Tabuleiro {
 		pcs[pos.getLinha()][pos.getColuna()] = piece;
 		piece.pos = pos;
 	}
+	
+	public 	Peca RemovePiece(Posicao pos) {
+		if(!PositionExists(pos)) {
+			throw new BoardException("Posicao inexistente");
+		}
+		if(piece(pos) == null) {
+			return null;
+		}
+		
+		Peca aux = piece(pos);
+		aux.pos = null;
+		pcs[pos.getLinha()][pos.getColuna()] = null;
+		return aux;
+	}
+	
+	
 	
 	private boolean PositionExists(int linhas , int colunas) {
 		return linhas >= 0 && linhas < linha && colunas >= 0 && colunas < coluna;

@@ -22,6 +22,29 @@ public class Partida {
 		return mat;
 	}
 	
+	public Xadrez_Peca performChessMove(Xadrez_Posicao src , Xadrez_Posicao tgt) {
+		Posicao source = src.toPosition();
+		Posicao target = tgt.toPosition();
+		
+		validateSourcePosition(source);
+		Peca capturada = makeMove(source,target);
+		
+		return (Xadrez_Peca) capturada;
+	}
+	
+	private Peca makeMove(Posicao src , Posicao tgt) {
+		Peca p = tab.RemovePiece(src);
+		Peca capturar = tab.RemovePiece(tgt);
+		tab.placePiece(p, tgt);
+		return capturar;
+	}
+	
+	private void validateSourcePosition(Posicao p) {
+		if(!tab.Tempeca(p)) {
+			throw new ChessException("Nao existe peca na posicao de origem");
+		}
+	}
+	
 	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {
 		tab.placePiece(piece, new Xadrez_Posicao(column,row).toPosition());
 	}
@@ -44,5 +67,23 @@ public class Partida {
 		placeNewPiece('f',7,new Piao(tab,Cor.BLACK));
 		placeNewPiece('g',7,new Piao(tab,Cor.BLACK));
 		placeNewPiece('h',7, new Piao(tab, Cor.BLACK));
+		
+		placeNewPiece('a',1, new Torre(tab, Cor.WHITE));
+		placeNewPiece('b',1,new Cavalo(tab,Cor.WHITE));
+		placeNewPiece('c',1,new Bispo(tab,Cor.WHITE));
+		placeNewPiece('d',1,new Rainha(tab,Cor.WHITE));
+		placeNewPiece('e',1,new Rei(tab,Cor.WHITE));
+		placeNewPiece('f',1,new Bispo(tab,Cor.WHITE));
+		placeNewPiece('g',1,new Cavalo(tab,Cor.WHITE));
+		placeNewPiece('h',1, new Torre(tab, Cor.WHITE));
+	
+		placeNewPiece('a',2, new Piao(tab, Cor.WHITE));
+		placeNewPiece('b',2,new Piao(tab,Cor.WHITE));
+		placeNewPiece('c',2,new Piao(tab,Cor.WHITE));
+		placeNewPiece('d',2,new Piao(tab,Cor.WHITE));
+		placeNewPiece('e',2,new Piao(tab,Cor.WHITE));
+		placeNewPiece('f',2,new Piao(tab,Cor.WHITE));
+		placeNewPiece('g',2,new Piao(tab,Cor.WHITE));
+		placeNewPiece('h',2, new Piao(tab, Cor.WHITE));
 	}
 }
