@@ -6,6 +6,7 @@ public abstract class Xadrez_Peca extends Peca{
 
 	private Cor c;
 	private int moveCount;
+	
 	public Xadrez_Peca(Tabuleiro tab,Cor c) {
 		super(tab);
 		this.c = c;
