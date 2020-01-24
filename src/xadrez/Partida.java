@@ -5,10 +5,14 @@ import Tabuleiro_Jogo.*;
 
 public class Partida {
 	
-	private Tabuleiro tab;
+private Tabuleiro tab;
+private	int turn;
+private Cor jog;
 	
 	public Partida() {
 		tab = new Tabuleiro(8,8);
+		turn = 1;
+		jog = Cor.WHITE;
 		InicialSetUp();
 	}
 
@@ -35,6 +39,7 @@ public class Partida {
 		validateSourcePosition(source);
 		validateTargetPosition(source,target);
 		Peca capturada = makeMove(source,target);
+		nextTurn();
 		
 		return (Xadrez_Peca) capturada;
 	}
@@ -50,15 +55,33 @@ public class Partida {
 		if(!tab.Tempeca(p)) {
 			throw new ChessException("Nao existe peca na posicao de origem");
 		}
+		
+		if(jog != ((Xadrez_Peca)tab.piece(p)).getC()) {
+			throw new ChessException("a peca escolhida nao é sua");
+		}
+				
 		if(!tab.piece(p).isThereAnyPossibleMove()) {
 			throw new ChessException("Nao existe movimentos possiveis para a peça escolhida");
 		}}
 	
+	public int getTurn() {
+		return turn;
+	}
+
+	public Cor getJog() {
+		return jog;
+	}
+
 	private void validateTargetPosition(Posicao src , Posicao tgt) {
 		if(!tab.piece(src).possibleMove(tgt)) {
 			throw new ChessException("A peca escolhida nao pode se mover na posicao de destino");
 		}}
 	
+	private void nextTurn() {
+		turn ++;
+		jog = (jog == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
+	}
+
 	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {
 		tab.placePiece(piece, new Xadrez_Posicao(column,row).toPosition());
 	}

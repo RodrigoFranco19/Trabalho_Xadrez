@@ -4,7 +4,6 @@ import java.util.*;
 import xadrez.*;
 
 public class Imprimir {
-
 	/*
 	public static final String ANSI_RESET = "\u001B[0m";
 
@@ -56,7 +55,13 @@ public class Imprimir {
 		
 		}catch(RuntimeException e) {
 			throw new InputMismatchException("Erro ao ler posicao de xadrez");
-		}
+		}}
+	
+	public static void printMatch(Partida part) {
+		printBoard(part.getPieces());
+		System.out.println();
+		System.out.println("Turno: " + part.getTurn());
+		System.out.println("Jogador: " + part.getJog());
 	}
 	
 	public static void printBoard(Xadrez_Peca[][]pcs) {
@@ -84,7 +89,6 @@ public class Imprimir {
 		}
 		System.out.print("  a b c d e f g h");
 	}
-	
 	
 	private static void printPiece(Xadrez_Peca piece,boolean background) {
 		if(background) {

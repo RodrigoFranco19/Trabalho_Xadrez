@@ -17,7 +17,8 @@ public class Programa {
 		while(true) {
 			try {
 	//	Imprimir.clearScreen();
-		Imprimir.printBoard(p.getPieces());
+		//Imprimir.printBoard(p.getPieces());
+		Imprimir.printMatch(p);
 		System.out.println();
 		
 		System.out.print("Source:");
