@@ -27,6 +27,7 @@ public class Partida {
 		Posicao target = tgt.toPosition();
 		
 		validateSourcePosition(source);
+		validateTargetPosition(source,target);
 		Peca capturada = makeMove(source,target);
 		
 		return (Xadrez_Peca) capturada;
@@ -44,10 +45,13 @@ public class Partida {
 			throw new ChessException("Nao existe peca na posicao de origem");
 		}
 		if(!tab.piece(p).isThereAnyPossibleMove()) {
-			throw new ChessException("Nao existe movimentos possiveis para a peca escolhida");
-
-		}
-	}
+			throw new ChessException("Nao existe movimentos possiveis para a peça escolhida");
+		}}
+	
+	private void validateTargetPosition(Posicao src , Posicao tgt) {
+		if(!tab.piece(src).possibleMove(tgt)) {
+			throw new ChessException("A peca escolhida nao pode se mover na posicao de destino");
+		}}
 	
 	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {
 		tab.placePiece(piece, new Xadrez_Posicao(column,row).toPosition());

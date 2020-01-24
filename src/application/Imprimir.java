@@ -1,10 +1,7 @@
 package application;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-import xadrez.Xadrez_Peca;
-import xadrez.Xadrez_Posicao;
+import java.util.*;
+import xadrez.*;
 
 public class Imprimir {
 
@@ -58,7 +55,7 @@ public class Imprimir {
 		return new Xadrez_Posicao(column,row);
 		
 		}catch(RuntimeException e) {
-			throw new InputMismatchException(e.getMessage());
+			throw new InputMismatchException("Erro ao ler posicao de xadrez");
 		}
 	}
 	

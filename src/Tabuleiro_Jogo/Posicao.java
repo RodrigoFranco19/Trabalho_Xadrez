@@ -26,7 +26,7 @@ public class Posicao {
 		this.coluna = coluna;
 	}
 	
-	public void SetValues() {
+	public void SetValues(int linha , int coluna) {
 		this.linha = linha;
 		this.coluna = coluna;
 	}

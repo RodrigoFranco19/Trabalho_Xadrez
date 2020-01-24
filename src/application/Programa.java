@@ -24,7 +24,7 @@ public class Programa {
 		Xadrez_Posicao p1 = Imprimir.readChessPosition(sc);
 		
 		System.out.println();
-		System.out.print("Target");
+		System.out.print("Target:");
 		Xadrez_Posicao p2 = Imprimir.readChessPosition(sc);
 		
 		Xadrez_Peca capturada = p.performChessMove(p1, p2);
