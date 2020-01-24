@@ -28,11 +28,11 @@ protected Posicao toPosition() {
 }
 
 protected static Xadrez_Posicao fromPosition(Posicao pos) {
-	return new Xadrez_Posicao((char)('a'-pos.getColuna()),8 - pos.getLinha());
+	return new Xadrez_Posicao((char)('a' + pos.getColuna()),8 - pos.getLinha());
 }
 
 @Override
 public String toString() {
-	return " " + column + row;
+	return "" + column + row;
 }
 }

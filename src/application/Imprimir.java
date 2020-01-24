@@ -72,6 +72,10 @@ public class Imprimir {
 		System.out.println();
 		System.out.println("Turno: " + part.getTurn());
 		System.out.println("Jogador: " + part.getJog());
+		
+		if(part.getCheck()) {
+			System.out.println("CHECK!");
+		}
 	}
 	
 	public static void printBoard(Xadrez_Peca[][]pcs) {
@@ -102,7 +106,7 @@ public class Imprimir {
 	
 	private static void printPiece(Xadrez_Peca piece,boolean background) {
 		if(background) {
-			System.out.println("x");
+			System.out.print("x");
 		}
 		if(piece == null) {
 			System.out.print("-");
@@ -120,7 +124,7 @@ public class Imprimir {
 		List<Xadrez_Peca> branca = capturada.stream().filter(x -> x.getC() == Cor.WHITE).collect(Collectors.toList());
 		List<Xadrez_Peca> preta = capturada.stream().filter(x -> x.getC() == Cor.BLACK).collect(Collectors.toList());
 		
-		System.out.print("Capturadas");
+		System.out.println("Capturadas:");
 		System.out.print("White:");
 		System.out.println(Arrays.toString(branca.toArray()));
 		

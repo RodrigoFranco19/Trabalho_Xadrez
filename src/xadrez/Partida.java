@@ -2,6 +2,7 @@ package xadrez;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Pecas.Bispo;
 import Pecas.Cavalo;
@@ -18,7 +19,7 @@ public class Partida {
 private Tabuleiro tab;
 private	int turn;
 private Cor jog;
-
+private boolean check;
 private List<Peca> noTabuleiro = new ArrayList();
 private List<Peca> foraTabuleiro = new ArrayList();
 
@@ -28,7 +29,19 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		jog = Cor.WHITE;
 		InicialSetUp();
 	}
+	
+	public int getTurn() {
+		return turn;
+	}
 
+	public Cor getJog() {
+		return jog;
+	}
+
+	public boolean getCheck() {
+		return check;
+	}
+	
 	public Xadrez_Peca[][] getPieces(){
 		Xadrez_Peca[][]mat = new Xadrez_Peca[tab.getLinha()][tab.getColuna()];
 		
@@ -52,11 +65,19 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		validateSourcePosition(source);
 		validateTargetPosition(source,target);
 		Peca capturada = makeMove(source,target);
+		
+		if(TestCheck(jog) == true) {
+			UndoMove(source,target,capturada);
+			throw new ChessException("Voce nao pode se colocar em cheque");
+		}
+		
+		check = (TestCheck(opponent(jog))) ? true:false;
+		
 		nextTurn();
 		
 		return (Xadrez_Peca) capturada;
 	}
-	
+
 	private Peca makeMove(Posicao src , Posicao tgt) {
 		Peca p = tab.RemovePiece(src);
 		Peca capturar = tab.RemovePiece(tgt);
@@ -64,12 +85,22 @@ private List<Peca> foraTabuleiro = new ArrayList();
 
 		if(capturar != null) {
 			noTabuleiro.remove(capturar);
-			foraTabuleiro.remove(capturar);
+			foraTabuleiro.add(capturar);
 		}
 		
 		return capturar;
 	}
 	
+	private void UndoMove(Posicao src , Posicao tgt , Peca capt) {
+		Peca p = tab.RemovePiece(tgt);
+		tab.placePiece(p, src);
+		
+		if(capt != null) {
+			tab.placePiece(capt, tgt);
+			noTabuleiro.add(capt);
+			foraTabuleiro.remove(capt);
+		}}
+
 	private void validateSourcePosition(Posicao p) {
 		if(!tab.Tempeca(p)) {
 			throw new ChessException("Nao existe peca na posicao de origem");
@@ -81,16 +112,9 @@ private List<Peca> foraTabuleiro = new ArrayList();
 				
 		if(!tab.piece(p).isThereAnyPossibleMove()) {
 			throw new ChessException("Nao existe movimentos possiveis para a peça escolhida");
-		}}
+		}
+	}
 	
-	public int getTurn() {
-		return turn;
-	}
-
-	public Cor getJog() {
-		return jog;
-	}
-
 	private void validateTargetPosition(Posicao src , Posicao tgt) {
 		if(!tab.piece(src).possibleMove(tgt)) {
 			throw new ChessException("A peca escolhida nao pode se mover na posicao de destino");
@@ -100,7 +124,37 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		turn ++;
 		jog = (jog == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
 	}
-
+	
+	private Cor opponent(Cor c) {
+		return (c == Cor.WHITE) ? Cor.BLACK : Cor.WHITE;
+	}
+	
+	private Xadrez_Peca rei(Cor c) {
+		List<Peca> lista = noTabuleiro.stream().filter(x -> ((Xadrez_Peca)x).getC() == c).collect(Collectors.toList());
+		
+		for(Peca p: lista) {
+			if(p instanceof Rei){
+				return (Xadrez_Peca) p;
+			}}
+		
+		throw new IllegalStateException("Nao existe o rei da cor " + c + " No tabuleiro"); 
+	}
+	
+	private boolean TestCheck(Cor col) {
+		
+		Posicao rp = rei(col).getChessPos().toPosition();
+		List<Peca> peca_oponente = noTabuleiro.stream().filter(x -> ((Xadrez_Peca)x).getC() == opponent(col)).collect(Collectors.toList());
+		
+		for(Peca p : peca_oponente) {
+			boolean[][] mat = p.possibleMoves();
+			
+			if(mat[rp.getLinha()][rp.getColuna()]) {
+				return true;
+			}}
+		
+		return false;
+	}
+	
 	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {
 		tab.placePiece(piece, new Xadrez_Posicao(column,row).toPosition());
 		noTabuleiro.add(piece);
