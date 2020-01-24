@@ -22,6 +22,12 @@ public class Partida {
 		return mat;
 	}
 	
+	public boolean [][] possibleMove(Xadrez_Posicao srcP){
+		Posicao p = srcP.toPosition();
+		validateSourcePosition(p);
+		return tab.piece(p).possibleMoves();
+	}
+	
 	public Xadrez_Peca performChessMove(Xadrez_Posicao src , Xadrez_Posicao tgt) {
 		Posicao source = src.toPosition();
 		Posicao target = tgt.toPosition();

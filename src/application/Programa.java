@@ -23,6 +23,10 @@ public class Programa {
 		System.out.print("Source:");
 		Xadrez_Posicao p1 = Imprimir.readChessPosition(sc);
 		
+		boolean[][] possibleMoves = p.possibleMove(p1);
+		Imprimir.clearScreen();
+		Imprimir.printBoard(p.getPieces(),possibleMoves);
+		
 		System.out.println();
 		System.out.print("Target:");
 		Xadrez_Posicao p2 = Imprimir.readChessPosition(sc);

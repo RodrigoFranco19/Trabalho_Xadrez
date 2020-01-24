@@ -62,15 +62,34 @@ public class Imprimir {
 	public static void printBoard(Xadrez_Peca[][]pcs) {
 		for(int i = 0 ; i < pcs.length ; i++) {
 			System.out.print((8 -i) + " ");
+			
 			for(int j = 0 ; j < pcs.length ; j++) {
-				printPiece(pcs[i][j]);
+				printPiece(pcs[i][j],false);
 			}
+			
 			System.out.println();
 		}
 		System.out.print("  a b c d e f g h");
 	}
 	
-	private static void printPiece(Xadrez_Peca piece) {
+	public static void printBoard(Xadrez_Peca[][] pcs, boolean[][] possibleMoves) {
+		for(int i = 0 ; i < pcs.length ; i++) {
+			System.out.print((8 -i) + " ");
+			
+			for(int j = 0 ; j < pcs.length ; j++) {
+				printPiece(pcs[i][j],possibleMoves[i][j]);
+			}
+			
+			System.out.println();
+		}
+		System.out.print("  a b c d e f g h");
+	}
+	
+	
+	private static void printPiece(Xadrez_Peca piece,boolean background) {
+		if(background) {
+			System.out.println("x");
+		}
 		if(piece == null) {
 			System.out.print("-");
 		}else {
@@ -82,5 +101,4 @@ public class Imprimir {
 		}
 		System.out.print(" ");
 	}
-	
 }
