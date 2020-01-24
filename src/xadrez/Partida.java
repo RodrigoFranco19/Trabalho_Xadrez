@@ -1,14 +1,27 @@
 package xadrez;
 
-import Pecas.*;
-import Tabuleiro_Jogo.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import Pecas.Bispo;
+import Pecas.Cavalo;
+import Pecas.Piao;
+import Pecas.Rainha;
+import Pecas.Rei;
+import Pecas.Torre;
+import Tabuleiro_Jogo.Peca;
+import Tabuleiro_Jogo.Posicao;
+import Tabuleiro_Jogo.Tabuleiro;
 
 public class Partida {
 	
 private Tabuleiro tab;
 private	int turn;
 private Cor jog;
-	
+
+private List<Peca> noTabuleiro = new ArrayList();
+private List<Peca> foraTabuleiro = new ArrayList();
+
 	public Partida() {
 		tab = new Tabuleiro(8,8);
 		turn = 1;
@@ -48,6 +61,12 @@ private Cor jog;
 		Peca p = tab.RemovePiece(src);
 		Peca capturar = tab.RemovePiece(tgt);
 		tab.placePiece(p, tgt);
+
+		if(capturar != null) {
+			noTabuleiro.remove(capturar);
+			foraTabuleiro.remove(capturar);
+		}
+		
 		return capturar;
 	}
 	
@@ -84,6 +103,7 @@ private Cor jog;
 
 	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {
 		tab.placePiece(piece, new Xadrez_Posicao(column,row).toPosition());
+		noTabuleiro.add(piece);
 	}
 	
 	public void InicialSetUp() {
