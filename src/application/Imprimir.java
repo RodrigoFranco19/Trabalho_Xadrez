@@ -71,12 +71,17 @@ public class Imprimir {
 		printCaptured(capturar);
 		System.out.println();
 		System.out.println("Turno: " + part.getTurn());
-		System.out.println("Jogador: " + part.getJog());
-		
-		if(part.getCheck()) {
-			System.out.println("CHECK!");
+				
+		if(!part.isCheckMate()) {
+			System.out.println("Jogador: " + part.getJog());
+		}else {
+			System.out.println("Cheque Mate");
+			System.out.println("Vencedor: " + part.jog);
 		}
-	}
+		
+		if(part.isCheck()) {
+			System.out.println("CHECK!");
+		}}
 	
 	public static void printBoard(Xadrez_Peca[][]pcs) {
 		for(int i = 0 ; i < pcs.length ; i++) {

@@ -60,7 +60,6 @@ public class Tabuleiro {
 		return aux;
 	}
 	
-	
 	private boolean PositionExists(int linhas , int colunas) {
 		return linhas >= 0 && linhas < linha && colunas >= 0 && colunas < coluna;
 	}

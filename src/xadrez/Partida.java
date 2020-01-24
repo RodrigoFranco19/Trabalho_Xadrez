@@ -18,8 +18,10 @@ public class Partida {
 	
 private Tabuleiro tab;
 private	int turn;
-private Cor jog;
+public Cor jog;
 private boolean check;
+private boolean checkMate;
+
 private List<Peca> noTabuleiro = new ArrayList();
 private List<Peca> foraTabuleiro = new ArrayList();
 
@@ -38,8 +40,12 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		return jog;
 	}
 
-	public boolean getCheck() {
+	public boolean isCheck() {
 		return check;
+	}
+	
+	public boolean isCheckMate() {
+		return checkMate;
 	}
 	
 	public Xadrez_Peca[][] getPieces(){
@@ -73,8 +79,12 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		
 		check = (TestCheck(opponent(jog))) ? true:false;
 		
+		if(TestCheckMate(opponent(jog))) {
+			checkMate = true;
+			
+		}else {
 		nextTurn();
-		
+		}
 		return (Xadrez_Peca) capturada;
 	}
 
@@ -112,8 +122,7 @@ private List<Peca> foraTabuleiro = new ArrayList();
 				
 		if(!tab.piece(p).isThereAnyPossibleMove()) {
 			throw new ChessException("Nao existe movimentos possiveis para a peça escolhida");
-		}
-	}
+		}}
 	
 	private void validateTargetPosition(Posicao src , Posicao tgt) {
 		if(!tab.piece(src).possibleMove(tgt)) {
@@ -155,6 +164,37 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		return false;
 	}
 	
+	
+	private boolean TestCheckMate(Cor col) {
+		if(!TestCheck(col)) {
+			return false;
+		}
+		
+		List<Peca> list = noTabuleiro.stream().filter(x -> ((Xadrez_Peca)x).getC() == opponent(col)).collect(Collectors.toList());
+		
+		for(Peca p : list) {
+			boolean [][] mat = p.possibleMoves();
+			for(int i = 0 ; i <tab.getLinha() ; i++) {
+				for(int j = 0 ; j <  tab.getColuna() ; j++) {
+					if(mat[i][j]) {
+						
+						Posicao src = ((Xadrez_Peca)p).getChessPos().toPosition();
+						Posicao tgt = new Posicao(i,j);
+						Peca capt = makeMove(src,tgt);
+						
+						boolean testCheck = TestCheck(col);
+						UndoMove(src,tgt,capt);
+						
+						if(!testCheck) {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+
 	private void placeNewPiece(char column , int row , Xadrez_Peca piece) {
 		tab.placePiece(piece, new Xadrez_Posicao(column,row).toPosition());
 		noTabuleiro.add(piece);

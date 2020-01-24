@@ -12,16 +12,15 @@ import xadrez.Xadrez_Posicao;
 
 public class Programa {
 	public static void main(String[] args) {
+		
 		Partida p = new Partida();
-		
 		Scanner sc =new Scanner(System.in);
-		
 		List<Xadrez_Peca> capturar = new ArrayList();
 		
-		while(true) {
-		//	try {
-		//Imprimir.clearScreen();
-				
+		while(!p.isCheckMate()) {
+		
+		try {
+		//Imprimir.clearScreen();	
 		Imprimir.printMatch(p,capturar);
 		System.out.println();
 		
@@ -42,16 +41,16 @@ public class Programa {
 			capturar.add(capturada);
 		}
 		
-	/*	}catch(ChessException e) {
+		}catch(ChessException e) {
 			System.out.println(e.getMessage());
 			sc.nextLine();
-		}
-		
-		catch(InputMismatchException e) {
+			
+		}catch(InputMismatchException e) {
 			System.out.println(e.getMessage());
 			sc.nextLine();
-		}*/
-		}
+		}}	
 		
+		Imprimir.clearScreen();
+		Imprimir.printMatch(p, capturar);
 }
 }
