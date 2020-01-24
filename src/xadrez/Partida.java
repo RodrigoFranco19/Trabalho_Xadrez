@@ -89,7 +89,9 @@ private List<Peca> foraTabuleiro = new ArrayList();
 	}
 
 	private Peca makeMove(Posicao src , Posicao tgt) {
-		Peca p = tab.RemovePiece(src);
+		Xadrez_Peca p = (Xadrez_Peca)tab.RemovePiece(src);
+		p.IncreaseMoveCount();
+		
 		Peca capturar = tab.RemovePiece(tgt);
 		tab.placePiece(p, tgt);
 
@@ -102,7 +104,9 @@ private List<Peca> foraTabuleiro = new ArrayList();
 	}
 	
 	private void UndoMove(Posicao src , Posicao tgt , Peca capt) {
-		Peca p = tab.RemovePiece(tgt);
+		Xadrez_Peca p = (Xadrez_Peca)tab.RemovePiece(tgt);
+		p.DecreaseMoveCount();
+		
 		tab.placePiece(p, src);
 		
 		if(capt != null) {

@@ -5,7 +5,7 @@ import Tabuleiro_Jogo.*;
 public abstract class Xadrez_Peca extends Peca{
 
 	private Cor c;
-	
+	private int moveCount;
 	public Xadrez_Peca(Tabuleiro tab,Cor c) {
 		super(tab);
 		this.c = c;
@@ -15,6 +15,18 @@ public abstract class Xadrez_Peca extends Peca{
 		return c;
 	}
 	
+	public void IncreaseMoveCount() {
+		moveCount ++;
+	}
+	
+	public void DecreaseMoveCount() {
+		moveCount --;
+	}
+	
+	public int getMoveCount() {
+		return moveCount;
+	}
+
 	protected boolean IsThereOponnentPiece(Posicao p) {
 		Xadrez_Peca p1 = (Xadrez_Peca) getTab().piece(p);
 		
