@@ -13,6 +13,7 @@ private	int turn;
 public Cor jog;
 private boolean check;
 private boolean checkMate;
+private Xadrez_Peca enPassantVulnerabel;
 
 private List<Peca> noTabuleiro = new ArrayList();
 private List<Peca> foraTabuleiro = new ArrayList();
@@ -38,6 +39,10 @@ private List<Peca> foraTabuleiro = new ArrayList();
 	
 	public boolean isCheckMate() {
 		return checkMate;
+	}
+	
+	public Xadrez_Peca getEnPassantVulnerabel() {
+		return enPassantVulnerabel;
 	}
 	
 	public Xadrez_Peca[][] getPieces(){
@@ -69,6 +74,8 @@ private List<Peca> foraTabuleiro = new ArrayList();
 			throw new ChessException("Voce nao pode se colocar em cheque");
 		}
 		
+		Xadrez_Peca movida = (Xadrez_Peca) tab.piece(target);
+		
 		check = (TestCheck(opponent(jog))) ? true:false;
 		
 		if(TestCheckMate(opponent(jog))) {
@@ -77,6 +84,15 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		}else {
 		nextTurn();
 		}
+		
+		
+	//enPassant	
+		if(movida instanceof Piao && (target.getLinha() == source.getLinha() - 2 ||target.getLinha() == source.getLinha() + 2)) {
+			enPassantVulnerabel = movida;
+		}else {
+			enPassantVulnerabel = null;
+		}
+		
 		return (Xadrez_Peca) capturada;
 	}
 

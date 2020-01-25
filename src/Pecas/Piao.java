@@ -3,12 +3,16 @@ package Pecas;
 import Tabuleiro_Jogo.Posicao;
 import Tabuleiro_Jogo.Tabuleiro;
 import xadrez.Cor;
+import xadrez.Partida;
 import xadrez.Xadrez_Peca;
 
 public class Piao extends Xadrez_Peca{
 
-	public Piao(Tabuleiro tab, Cor c) {
+	private Partida partida;
+	
+	public Piao(Tabuleiro tab, Cor c,Partida partida) {
 		super(tab, c);
+		this.partida = partida;
 	}
 
 	@Override
@@ -46,6 +50,21 @@ public class Piao extends Xadrez_Peca{
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 		
+	//enPassant
+		if(p.getLinha() == 3) {
+			Posicao left = new Posicao(p.getLinha(),p.getColuna() - 1);
+			
+			if(getTab().PositionExists(left) && IsThereOponnentPiece(left) && getTab().piece(left) == partida.getEnPassantVulnerabel()) {
+				mat[left.getLinha() - 1][left.getColuna()] = true;
+			}
+			
+			Posicao right = new Posicao(p.getLinha(),p.getColuna() + 1);
+			
+			if(getTab().PositionExists(right) && IsThereOponnentPiece(right) && getTab().piece(right) == partida.getEnPassantVulnerabel()) {
+				mat[right.getLinha() - 1][right.getColuna()] = true;
+			}
+		}
+		
 	}else {
 		p.SetValues(p.getLinha() + 1, p.getColuna());
 		if(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
@@ -69,7 +88,23 @@ public class Piao extends Xadrez_Peca{
 		if(getTab().PositionExists(p) && IsThereOponnentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
-	}
+		
+		
+		//enPassant
+				if(p.getLinha() == 4) {
+					Posicao left = new Posicao(p.getLinha(),p.getColuna() - 1);
+					
+					if(getTab().PositionExists(left) && IsThereOponnentPiece(left) && getTab().piece(left) == partida.getEnPassantVulnerabel()) {
+						mat[left.getLinha() + 1][left.getColuna()] = true;
+					}
+					
+					Posicao right = new Posicao(p.getLinha(),p.getColuna() + 1);
+					
+					if(getTab().PositionExists(right) && IsThereOponnentPiece(right) && getTab().piece(right) == partida.getEnPassantVulnerabel()) {
+						mat[right.getLinha() + 1][right.getColuna()] = true;
+					}
+				}
+		}
 		return mat;
 	}
 }
