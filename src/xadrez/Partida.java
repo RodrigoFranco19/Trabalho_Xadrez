@@ -1,8 +1,8 @@
 package xadrez;
 
+import java.security.*;
 import java.util.*;
-import java.util.stream.Collectors;
-
+import java.util.stream.*;
 import Pecas.*;
 import Tabuleiro_Jogo.*;
 
@@ -14,6 +14,7 @@ public Cor jog;
 private boolean check;
 private boolean checkMate;
 private Xadrez_Peca enPassantVulnerabel;
+private Xadrez_Peca promoted;
 
 private List<Peca> noTabuleiro = new ArrayList();
 private List<Peca> foraTabuleiro = new ArrayList();
@@ -43,6 +44,10 @@ private List<Peca> foraTabuleiro = new ArrayList();
 	
 	public Xadrez_Peca getEnPassantVulnerabel() {
 		return enPassantVulnerabel;
+	}
+	
+	public Xadrez_Peca getPromoted() {
+		return promoted;
 	}
 	
 	public Xadrez_Peca[][] getPieces(){
@@ -76,6 +81,15 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		
 		Xadrez_Peca movida = (Xadrez_Peca) tab.piece(target);
 		
+	//Promoted	
+		promoted = null;
+		if(movida instanceof Piao) {
+			if((movida.getC() == Cor.WHITE && source.getLinha() == 0) || (movida.getC() == Cor.WHITE && source.getLinha() == 7)) {
+				promoted = (Xadrez_Peca) tab.piece(target);
+				promoted = ReplacePromotedPiece("Q");
+			}
+		}
+		
 		check = (TestCheck(opponent(jog))) ? true:false;
 		
 		if(TestCheckMate(opponent(jog))) {
@@ -96,6 +110,35 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		return (Xadrez_Peca) capturada;
 	}
 
+	
+	public Xadrez_Peca ReplacePromotedPiece(String type) {
+		if(promoted == null) {
+			throw new IllegalStateException("Nao ha peça para ser promovida");
+		}
+		
+		if(!type.equals("B") && !type.equals("Q") && !type.equals("C") && !type.equals("T")) {
+			throw new InvalidParameterException("Tipo invalido para promover");
+		}
+		
+		Posicao pos = promoted.getChessPos().toPosition();
+		Peca p = tab.RemovePiece(pos);
+		noTabuleiro.remove(p);
+		
+		
+		Xadrez_Peca newPiece = newPiece(type,promoted.getC());
+		tab.placePiece(newPiece, pos);
+		noTabuleiro.add(newPiece);
+		
+		return newPiece;
+	}
+	
+	private Xadrez_Peca newPiece(String type , Cor c) {
+		if(type.equals("B")) return new Bispo(tab,c);
+		if(type.equals("C")) return new Cavalo(tab,c);
+		if(type.equals("Q")) return new Rainha(tab,c);
+		return new Torre(tab,c);
+	}
+	
 	private Peca makeMove(Posicao src , Posicao tgt) {
 		Xadrez_Peca p = (Xadrez_Peca)tab.RemovePiece(src);
 		p.IncreaseMoveCount();
@@ -130,6 +173,23 @@ private List<Peca> foraTabuleiro = new ArrayList();
 			Xadrez_Peca torre = (Xadrez_Peca) tab.RemovePiece(srcT);
 			tab.placePiece(torre, tgtT);
 			torre.IncreaseMoveCount();
+		}
+		
+		
+	//EnPassant
+		if(p instanceof Piao) {
+			if(src.getColuna() != tgt.getColuna() && capturar == null) {
+				Posicao piao;
+				
+				if(p.getC() == Cor.WHITE) {
+					piao = new Posicao(tgt.getLinha() + 1 ,tgt.getColuna());
+				}else {
+					piao = new Posicao(tgt.getLinha() - 1 ,tgt.getColuna());
+				}
+				capturar = tab.RemovePiece(piao);
+				foraTabuleiro.add(capturar);
+				noTabuleiro.remove(capturar);
+			}
 		}
 		
 		return capturar;
@@ -169,6 +229,22 @@ private List<Peca> foraTabuleiro = new ArrayList();
 			Xadrez_Peca torre = (Xadrez_Peca) tab.RemovePiece(tgtT);
 			tab.placePiece(torre, srcT);
 			torre.IncreaseMoveCount();
+		}
+		
+	//Enpassant	
+		if(p instanceof Piao) {
+			if(src.getColuna() != tgt.getColuna() && capt == enPassantVulnerabel) {
+				Xadrez_Peca pi = (Xadrez_Peca) tab.RemovePiece(tgt);
+				Posicao piao;
+				
+				if(p.getC() == Cor.WHITE) {
+					piao = new Posicao(3,tgt.getColuna());
+				}else {
+					piao = new Posicao(4,tgt.getColuna());
+				}
+				
+				tab.placePiece(pi, piao);
+			}
 		}
 	}
 
@@ -262,39 +338,39 @@ private List<Peca> foraTabuleiro = new ArrayList();
 	
 	public void InicialSetUp() {
 		placeNewPiece('a',8,new Torre(tab, Cor.WHITE));
-		placeNewPiece('b',8,new Cavalo(tab,Cor.WHITE));
-		placeNewPiece('c',8,new Bispo(tab,Cor.WHITE));
-		placeNewPiece('d',8,new Rainha(tab,Cor.WHITE));
-		placeNewPiece('e',8,new Rei(tab,Cor.WHITE,this));
-		placeNewPiece('f',8,new Bispo(tab,Cor.WHITE));
-		placeNewPiece('g',8,new Cavalo(tab,Cor.WHITE));
-		placeNewPiece('h',8,new Torre(tab, Cor.WHITE));
+		//placeNewPiece('b',8,new Cavalo(tab,Cor.WHITE));
+		//placeNewPiece('c',8,new Bispo(tab,Cor.WHITE));
+		//placeNewPiece('d',8,new Rainha(tab,Cor.WHITE));
+		//placeNewPiece('e',8,new Rei(tab,Cor.WHITE,this));
+		//placeNewPiece('f',8,new Bispo(tab,Cor.WHITE));
+	//	placeNewPiece('g',8,new Cavalo(tab,Cor.WHITE));
+		//placeNewPiece('h',8,new Torre(tab, Cor.WHITE));
 		
-		placeNewPiece('a',7,new Piao(tab,Cor.WHITE));
-		placeNewPiece('b',7,new Piao(tab,Cor.WHITE));
-		placeNewPiece('c',7,new Piao(tab,Cor.WHITE));
-		placeNewPiece('d',7,new Piao(tab,Cor.WHITE));
-		placeNewPiece('e',7,new Piao(tab,Cor.WHITE));
-		placeNewPiece('f',7,new Piao(tab,Cor.WHITE));
-		placeNewPiece('g',7,new Piao(tab,Cor.WHITE));
-		placeNewPiece('h',7,new Piao(tab,Cor.WHITE));
+		//placeNewPiece('a',7,new Piao(tab,Cor.WHITE,this));
+		//placeNewPiece('b',7,new Piao(tab,Cor.WHITE,this));
+		//placeNewPiece('c',7,new Piao(tab,Cor.WHITE,this));
+		placeNewPiece('d',7,new Piao(tab,Cor.WHITE,this));
+		//placeNewPiece('e',7,new Piao(tab,Cor.WHITE,this));
+		//placeNewPiece('f',7,new Piao(tab,Cor.WHITE,this));
+		//placeNewPiece('g',7,new Piao(tab,Cor.WHITE,this));
+		//placeNewPiece('h',7,new Piao(tab,Cor.WHITE,this));
 		
-		placeNewPiece('a',1,new Torre(tab,Cor.BLACK));
-		placeNewPiece('b',1,new Cavalo(tab,Cor.BLACK));
-		placeNewPiece('c',1,new Bispo(tab,Cor.BLACK));
-		placeNewPiece('d',1,new Rainha(tab,Cor.BLACK));
-		placeNewPiece('e',1,new Rei(tab,Cor.BLACK,this));
-		placeNewPiece('f',1,new Bispo(tab,Cor.BLACK));
-		placeNewPiece('g',1,new Cavalo(tab,Cor.BLACK));
-		placeNewPiece('h',1,new Torre(tab,Cor.BLACK));
+		//placeNewPiece('a',1,new Torre(tab,Cor.BLACK));
+		//placeNewPiece('b',1,new Cavalo(tab,Cor.BLACK));
+		//placeNewPiece('c',1,new Bispo(tab,Cor.BLACK));
+		//placeNewPiece('d',1,new Rainha(tab,Cor.BLACK));
+	//	placeNewPiece('e',1,new Rei(tab,Cor.BLACK,this));
+		//placeNewPiece('f',1,new Bispo(tab,Cor.BLACK));
+		//placeNewPiece('g',1,new Cavalo(tab,Cor.BLACK));
+		//placeNewPiece('h',1,new Torre(tab,Cor.BLACK));
 	
-		placeNewPiece('a',2,new Piao(tab,Cor.BLACK));
-		placeNewPiece('b',2,new Piao(tab,Cor.BLACK));
-		placeNewPiece('c',2,new Piao(tab,Cor.BLACK));
-		placeNewPiece('d',2,new Piao(tab,Cor.BLACK));
-		placeNewPiece('e',2,new Piao(tab,Cor.BLACK));
-		placeNewPiece('f',2,new Piao(tab,Cor.BLACK));
-		placeNewPiece('g',2,new Piao(tab,Cor.BLACK));
-		placeNewPiece('h',2,new Piao(tab,Cor.BLACK));
+		//placeNewPiece('a',2,new Piao(tab,Cor.BLACK,this));
+		placeNewPiece('b',2,new Piao(tab,Cor.BLACK,this));
+		//placeNewPiece('c',2,new Piao(tab,Cor.BLACK,this));
+	//	placeNewPiece('d',2,new Piao(tab,Cor.BLACK,this));
+		//placeNewPiece('e',2,new Piao(tab,Cor.BLACK,this));
+		//placeNewPiece('f',2,new Piao(tab,Cor.BLACK,this));
+	//	placeNewPiece('g',2,new Piao(tab,Cor.BLACK,this));
+	//	placeNewPiece('h',2,new Piao(tab,Cor.BLACK,this));
 	}
 }

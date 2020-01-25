@@ -1,14 +1,7 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
-
-import xadrez.ChessException;
-import xadrez.Partida;
-import xadrez.Xadrez_Peca;
-import xadrez.Xadrez_Posicao;
+import java.util.*;
+import xadrez.*;
 
 public class Programa {
 	public static void main(String[] args) {
@@ -18,7 +11,6 @@ public class Programa {
 		List<Xadrez_Peca> capturar = new ArrayList();
 		
 		while(!p.isCheckMate()) {
-		
 		try {
 		//Imprimir.clearScreen();	
 		Imprimir.printMatch(p,capturar);
@@ -39,6 +31,12 @@ public class Programa {
 			
 		if(capturada != null) {
 			capturar.add(capturada);
+		}
+		
+		if(p.getPromoted() != null) {
+			System.out.println("Digite a peca para a promocao (B/Q/T/C)");
+			String promovida = sc.nextLine();
+			p.ReplacePromotedPiece(promovida);
 		}
 		
 		}catch(ChessException e) {
