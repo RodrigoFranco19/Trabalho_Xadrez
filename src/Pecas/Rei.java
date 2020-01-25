@@ -15,11 +15,9 @@ public class Rei extends Xadrez_Peca {
 	}
 
 	private boolean canMove(Posicao pos) {
-		Xadrez_Peca p = (Xadrez_Peca) getTab().piece(pos);
-		
-		return p == null && p.getC() != getC();
+		Xadrez_Peca piece = (Xadrez_Peca) getTab().piece(pos);
+		return piece == null && piece.getC() != getC();
 	}
-	
 	
 	@Override
 	public boolean[][] possibleMoves() {

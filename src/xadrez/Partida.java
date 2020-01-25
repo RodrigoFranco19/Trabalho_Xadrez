@@ -204,40 +204,40 @@ private List<Peca> foraTabuleiro = new ArrayList();
 	}
 	
 	public void InicialSetUp() {
-		placeNewPiece('a',8, new Torre(tab, Cor.BLACK));
-		placeNewPiece('b',8,new Cavalo(tab,Cor.BLACK));
-		placeNewPiece('c',8,new Bispo(tab,Cor.BLACK));
-		placeNewPiece('d',8,new Rainha(tab,Cor.BLACK));
-		placeNewPiece('e',8,new Rei(tab,Cor.BLACK));
-		placeNewPiece('f',8,new Bispo(tab,Cor.BLACK));
-		placeNewPiece('g',8,new Cavalo(tab,Cor.BLACK));
-		placeNewPiece('h',8, new Torre(tab, Cor.BLACK));
+		placeNewPiece('a',8,new Torre(tab, Cor.WHITE));
+		placeNewPiece('b',8,new Cavalo(tab,Cor.WHITE));
+		placeNewPiece('c',8,new Bispo(tab,Cor.WHITE));
+		placeNewPiece('d',8,new Rainha(tab,Cor.WHITE));
+		placeNewPiece('e',8,new Rei(tab,Cor.WHITE));
+		placeNewPiece('f',8,new Bispo(tab,Cor.WHITE));
+		placeNewPiece('g',8,new Cavalo(tab,Cor.WHITE));
+		placeNewPiece('h',8,new Torre(tab, Cor.WHITE));
 		
-		placeNewPiece('a',7, new Piao(tab, Cor.BLACK));
-		placeNewPiece('b',7,new Piao(tab,Cor.BLACK));
-		placeNewPiece('c',7,new Piao(tab,Cor.BLACK));
-		placeNewPiece('d',7,new Piao(tab,Cor.BLACK));
-		placeNewPiece('e',7,new Piao(tab,Cor.BLACK));
-		placeNewPiece('f',7,new Piao(tab,Cor.BLACK));
-		placeNewPiece('g',7,new Piao(tab,Cor.BLACK));
-		placeNewPiece('h',7, new Piao(tab, Cor.BLACK));
+		placeNewPiece('a',7,new Piao(tab,Cor.WHITE));
+		placeNewPiece('b',7,new Piao(tab,Cor.WHITE));
+		placeNewPiece('c',7,new Piao(tab,Cor.WHITE));
+		placeNewPiece('d',7,new Piao(tab,Cor.WHITE));
+		placeNewPiece('e',7,new Piao(tab,Cor.WHITE));
+		placeNewPiece('f',7,new Piao(tab,Cor.WHITE));
+		placeNewPiece('g',7,new Piao(tab,Cor.WHITE));
+		placeNewPiece('h',7,new Piao(tab,Cor.WHITE));
 		
-		placeNewPiece('a',1, new Torre(tab, Cor.WHITE));
-		placeNewPiece('b',1,new Cavalo(tab,Cor.WHITE));
-		placeNewPiece('c',1,new Bispo(tab,Cor.WHITE));
-		placeNewPiece('d',1,new Rainha(tab,Cor.WHITE));
-		placeNewPiece('e',1,new Rei(tab,Cor.WHITE));
-		placeNewPiece('f',1,new Bispo(tab,Cor.WHITE));
-		placeNewPiece('g',1,new Cavalo(tab,Cor.WHITE));
-		placeNewPiece('h',1, new Torre(tab, Cor.WHITE));
+		placeNewPiece('a',1,new Torre(tab,Cor.BLACK));
+		placeNewPiece('b',1,new Cavalo(tab,Cor.BLACK));
+		placeNewPiece('c',1,new Bispo(tab,Cor.BLACK));
+		placeNewPiece('d',1,new Rainha(tab,Cor.BLACK));
+		placeNewPiece('e',1,new Rei(tab,Cor.BLACK));
+		placeNewPiece('f',1,new Bispo(tab,Cor.BLACK));
+		placeNewPiece('g',1,new Cavalo(tab,Cor.BLACK));
+		placeNewPiece('h',1,new Torre(tab,Cor.BLACK));
 	
-		placeNewPiece('a',2, new Piao(tab, Cor.WHITE));
-		placeNewPiece('b',2,new Piao(tab,Cor.WHITE));
-		placeNewPiece('c',2,new Piao(tab,Cor.WHITE));
-		placeNewPiece('d',2,new Piao(tab,Cor.WHITE));
-		placeNewPiece('e',2,new Piao(tab,Cor.WHITE));
-		placeNewPiece('f',2,new Piao(tab,Cor.WHITE));
-		placeNewPiece('g',2,new Piao(tab,Cor.WHITE));
-		placeNewPiece('h',2, new Piao(tab, Cor.WHITE));
+		placeNewPiece('a',2,new Piao(tab,Cor.BLACK));
+		placeNewPiece('b',2,new Piao(tab,Cor.BLACK));
+		placeNewPiece('c',2,new Piao(tab,Cor.BLACK));
+		placeNewPiece('d',2,new Piao(tab,Cor.BLACK));
+		placeNewPiece('e',2,new Piao(tab,Cor.BLACK));
+		placeNewPiece('f',2,new Piao(tab,Cor.BLACK));
+		placeNewPiece('g',2,new Piao(tab,Cor.BLACK));
+		placeNewPiece('h',2,new Piao(tab,Cor.BLACK));
 	}
 }

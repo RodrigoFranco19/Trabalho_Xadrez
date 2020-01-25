@@ -23,7 +23,6 @@ public class Piao extends Xadrez_Peca{
 		Posicao p = new Posicao(0,0);
 		
 		if(getC() == Cor.WHITE) {
-		
 		p.SetValues(p.getLinha() - 1, p.getColuna());
 		if(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
@@ -46,8 +45,8 @@ public class Piao extends Xadrez_Peca{
 		if(getTab().PositionExists(p) && IsThereOponnentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
-	}else {
 		
+	}else {
 		p.SetValues(p.getLinha() + 1, p.getColuna());
 		if(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;

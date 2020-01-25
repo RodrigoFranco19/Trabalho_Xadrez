@@ -23,7 +23,7 @@ public class Bispo extends Xadrez_Peca{
 		Posicao p = new Posicao(0,0);
 		
 		//Noroeste
-		p.SetValues(pos.getLinha() -1 , pos.getColuna() - 1);
+		p.SetValues(p.getLinha() -1 , p.getColuna() - 1);
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.SetValues(p.getLinha() - 1, p.getColuna() - 1);
@@ -33,7 +33,7 @@ public class Bispo extends Xadrez_Peca{
 		}
 		
 		//Nordeste
-		p.SetValues(pos.getLinha() - 1, pos.getColuna() + 1);
+		p.SetValues(p.getLinha() - 1, p.getColuna() + 1);
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.SetValues(p.getLinha() - 1, p.getColuna() + 1);
@@ -43,7 +43,7 @@ public class Bispo extends Xadrez_Peca{
 		}
 		
 		//Sudeste
-		p.SetValues(pos.getLinha() + 1, pos.getColuna() + 1);
+		p.SetValues(p.getLinha() + 1, p.getColuna() + 1);
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.SetValues(p.getLinha() + 1, p.getColuna() + 1);
@@ -53,7 +53,7 @@ public class Bispo extends Xadrez_Peca{
 		}
 		
 		//Sudoeste
-		p.SetValues(pos.getLinha() + 1 , pos.getColuna() - 1);
+		p.SetValues(p.getLinha() + 1 , p.getColuna() - 1);
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.SetValues(p.getLinha() + 1, p.getColuna() - 1);
@@ -62,8 +62,6 @@ public class Bispo extends Xadrez_Peca{
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 		
-		
 		return mat;
 	}
-
 }
