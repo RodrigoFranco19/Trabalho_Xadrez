@@ -20,8 +20,7 @@ public class Piao extends Xadrez_Peca{
 	public boolean[][] possibleMoves() {
 		boolean [][]mat = new boolean[getTab().getLinha()][getTab().getColuna()];
 		
-		
-		Posicao p =new Posicao(0,0);
+		Posicao p = new Posicao(0,0);
 		
 		if(getC() == Cor.WHITE) {
 		
@@ -36,7 +35,6 @@ public class Piao extends Xadrez_Peca{
 		if(getTab().PositionExists(p) && !getTab().Tempeca(p) && getMoveCount() == 0 && getTab().PositionExists(p2) && !getTab().Tempeca(p2)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
-		
 		
 		//Diagonais
 		p.SetValues(p.getLinha() - 1, p.getColuna() - 1);
@@ -61,7 +59,6 @@ public class Piao extends Xadrez_Peca{
 		if(getTab().PositionExists(p) && !getTab().Tempeca(p) && getMoveCount() == 0 && getTab().PositionExists(p2) && !getTab().Tempeca(p2)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
-		
 		
 		//Diagonais
 		p.SetValues(p.getLinha() + 1, p.getColuna() - 1);

@@ -178,6 +178,7 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		
 		for(Peca p : list) {
 			boolean [][] mat = p.possibleMoves();
+			
 			for(int i = 0 ; i <tab.getLinha() ; i++) {
 				for(int j = 0 ; j <  tab.getColuna() ; j++) {
 					if(mat[i][j]) {
@@ -191,11 +192,9 @@ private List<Peca> foraTabuleiro = new ArrayList();
 						
 						if(!testCheck) {
 							return false;
-						}
-					}
-				}
+						}}
+					}}
 			}
-		}
 		return true;
 	}
 
