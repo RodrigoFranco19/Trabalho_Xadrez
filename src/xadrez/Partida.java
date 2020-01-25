@@ -1,18 +1,10 @@
 package xadrez;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import Pecas.Bispo;
-import Pecas.Cavalo;
-import Pecas.Piao;
-import Pecas.Rainha;
-import Pecas.Rei;
-import Pecas.Torre;
-import Tabuleiro_Jogo.Peca;
-import Tabuleiro_Jogo.Posicao;
-import Tabuleiro_Jogo.Tabuleiro;
+import Pecas.*;
+import Tabuleiro_Jogo.*;
 
 public class Partida {
 	
@@ -100,6 +92,30 @@ private List<Peca> foraTabuleiro = new ArrayList();
 			foraTabuleiro.add(capturar);
 		}
 		
+		
+	//Movimento_Especial
+		//Pequeno
+		if(p instanceof Rei && tgt.getColuna() == src.getColuna() + 2) {
+			Posicao srcT = new Posicao(src.getLinha(),src.getColuna() + 3);
+			
+			Posicao tgtT = new Posicao(src.getLinha(),src.getColuna() + 1);
+			
+			Xadrez_Peca torre = (Xadrez_Peca) tab.RemovePiece(srcT);
+			tab.placePiece(torre, tgtT);
+			torre.IncreaseMoveCount();
+		}
+		
+		//Grande
+		if(p instanceof Rei && tgt.getColuna() == src.getColuna() - 2) {
+			Posicao srcT = new Posicao(src.getLinha(),src.getColuna() - 4);
+			
+			Posicao tgtT = new Posicao(src.getLinha(),src.getColuna() - 1);
+			
+			Xadrez_Peca torre = (Xadrez_Peca) tab.RemovePiece(srcT);
+			tab.placePiece(torre, tgtT);
+			torre.IncreaseMoveCount();
+		}
+		
 		return capturar;
 	}
 	
@@ -113,7 +129,32 @@ private List<Peca> foraTabuleiro = new ArrayList();
 			tab.placePiece(capt, tgt);
 			noTabuleiro.add(capt);
 			foraTabuleiro.remove(capt);
-		}}
+		}
+	
+		
+	//Movimento_Especial
+		//Pequeno
+		if(p instanceof Rei && tgt.getColuna() == src.getColuna() + 2) {
+			Posicao srcT = new Posicao(src.getLinha(),src.getColuna() + 3);
+			
+			Posicao tgtT = new Posicao(src.getLinha(),src.getColuna() + 1);
+			
+			Xadrez_Peca torre = (Xadrez_Peca) tab.RemovePiece(tgtT);
+			tab.placePiece(torre, srcT);
+			torre.DecreaseMoveCount();
+		}
+		
+		//Grande
+		if(p instanceof Rei && tgt.getColuna() == src.getColuna() - 2) {
+			Posicao srcT = new Posicao(src.getLinha(),src.getColuna() - 4);
+			
+			Posicao tgtT = new Posicao(src.getLinha(),src.getColuna() - 1);
+			
+			Xadrez_Peca torre = (Xadrez_Peca) tab.RemovePiece(tgtT);
+			tab.placePiece(torre, srcT);
+			torre.IncreaseMoveCount();
+		}
+	}
 
 	private void validateSourcePosition(Posicao p) {
 		if(!tab.Tempeca(p)) {
@@ -208,7 +249,7 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		placeNewPiece('b',8,new Cavalo(tab,Cor.WHITE));
 		placeNewPiece('c',8,new Bispo(tab,Cor.WHITE));
 		placeNewPiece('d',8,new Rainha(tab,Cor.WHITE));
-		placeNewPiece('e',8,new Rei(tab,Cor.WHITE));
+		placeNewPiece('e',8,new Rei(tab,Cor.WHITE,this));
 		placeNewPiece('f',8,new Bispo(tab,Cor.WHITE));
 		placeNewPiece('g',8,new Cavalo(tab,Cor.WHITE));
 		placeNewPiece('h',8,new Torre(tab, Cor.WHITE));
@@ -226,7 +267,7 @@ private List<Peca> foraTabuleiro = new ArrayList();
 		placeNewPiece('b',1,new Cavalo(tab,Cor.BLACK));
 		placeNewPiece('c',1,new Bispo(tab,Cor.BLACK));
 		placeNewPiece('d',1,new Rainha(tab,Cor.BLACK));
-		placeNewPiece('e',1,new Rei(tab,Cor.BLACK));
+		placeNewPiece('e',1,new Rei(tab,Cor.BLACK,this));
 		placeNewPiece('f',1,new Bispo(tab,Cor.BLACK));
 		placeNewPiece('g',1,new Cavalo(tab,Cor.BLACK));
 		placeNewPiece('h',1,new Torre(tab,Cor.BLACK));

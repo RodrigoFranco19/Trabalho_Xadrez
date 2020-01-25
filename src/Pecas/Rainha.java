@@ -22,9 +22,9 @@ public class Rainha extends Xadrez_Peca{
 		
 		Posicao p = new Posicao(0,0);
 		
-		//Torre
+	//Torre
 		//Cima
-		p.SetValues(pos.getLinha() -1 , pos.getColuna());
+		p.SetValues(p.getLinha() -1 , p.getColuna());
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.setLinha(p.getLinha() -1);
@@ -34,7 +34,7 @@ public class Rainha extends Xadrez_Peca{
 		}
 		
 		//Esquerda
-		p.SetValues(pos.getLinha(), pos.getColuna() - 1);
+		p.SetValues(p.getLinha(), p.getColuna() - 1);
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.setColuna(p.getColuna() -1);
@@ -44,7 +44,7 @@ public class Rainha extends Xadrez_Peca{
 		}
 		
 		//Direita
-		p.SetValues(pos.getLinha(), pos.getColuna() + 1);
+		p.SetValues(p.getLinha(), p.getColuna() + 1);
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.setColuna(p.getColuna() + 1);
@@ -54,7 +54,7 @@ public class Rainha extends Xadrez_Peca{
 		}
 		
 		//Abaixo
-		p.SetValues(pos.getLinha() + 1 , pos.getColuna());
+		p.SetValues(p.getLinha() + 1 , p.getColuna());
 		while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.setLinha(p.getLinha() + 1);
@@ -63,7 +63,7 @@ public class Rainha extends Xadrez_Peca{
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 		
-		//Bispo
+	//Bispo
 		//Noroeste
 				p.SetValues(p.getLinha() -1 , p.getColuna() - 1);
 				while(getTab().PositionExists(p) && !getTab().Tempeca(p)) {
