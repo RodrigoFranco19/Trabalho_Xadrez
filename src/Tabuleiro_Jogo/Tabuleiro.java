@@ -50,6 +50,7 @@ public class Tabuleiro {
 		if(!PositionExists(pos)) {
 			throw new BoardException("Posicao inexistente");
 		}
+		
 		if(piece(pos) == null) {
 			return null;
 		}
